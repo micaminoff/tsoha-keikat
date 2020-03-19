@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<form method="POST" action="{{ url_for('events_update', event_id=event.id) }}">
+    <label for="nameInput">Name: </label>
+    <input type="text" id="nameInput" name="name" value="{{ event.name }}" /><br>
+
+    <label for="venueInput">Venue: </label>
+    <input type="text" id="venueInput" name="venue" value="{{ event.venue }}"/><br>
+
+    <label for="performerInput">Performer: </label>
+    <input type="text" id="performerInput" name="performer" value="{{ event.performer }}" /><br>
+
+    <label for="dateInput">Date: </label>
+    <input type="date" id="dateInput" name="date" value="{{ event.date }}" /><br>
+
+    <input type="submit" value="Save changes" />
+</form>
+{% endblock %}
