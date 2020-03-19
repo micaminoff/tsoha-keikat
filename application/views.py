@@ -1,7 +1,9 @@
-from flask import render_template
+from flask import redirect, url_for
 from application import app
 
 
+# Just redirect to /events. Saving this for project structure
+# and potential landing page
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return redirect(url_for("events_index"))

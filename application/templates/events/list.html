@@ -14,6 +14,9 @@
       <td>{{ event.performer }}</td>
       <td>{{ event.venue }}</td>
       <td>{{ event.date }}</td>
+      <td><button type="button">
+          <a href="{{url_for('events_modify', event_id=event.id)}}">Modify</a>
+      </button></td>
     </tr>
     {% endfor %}
   </table>
