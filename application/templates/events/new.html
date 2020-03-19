@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+  
+{% block body %}
+<form method="POST" action="{{ url_for('events_create') }}">
+  <label for="nameInput">Name: </label>
+  <input type="text" id="nameInput" name="name"/><br>
+
+  <label for="venueInput">Venue: </label>
+  <input type="text" id="venueInput" name="venue"/><br>
+
+  <label for="performerInput">Performer: </label>
+  <input type="text" id="performerInput" name="performer"/><br>
+
+  <label for="dateInput">Date: </label>
+  <input type="date" id="dateInput" name="date"/><br>
+
+  <input type="submit" value="Add a new Event"/>
+</form>
+{% endblock %}

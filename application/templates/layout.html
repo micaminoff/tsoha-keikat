@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Tsoha Keikat</title>
+</head>
+
+<body>
+    <ul id="navigation">
+        <li><a href="{{url_for('index')}}">Index</a></li>
+        <li><a href="{{url_for('event_form')}}">New Event</a></li>
+        <li><a href="{{url_for('events_index')}}">List Events</a></li>
+    </ul>
+    {% block body %}
+    <p>
+        This should never be visible
+    </p>
+    {% endblock %}
+</body>
+
+</html>
