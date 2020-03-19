@@ -3,14 +3,19 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <title>Tsoha Keikat</title>
 </head>
 
 <body>
-    <ul id="navigation">
-        <li><a href="{{url_for('event_form')}}">New Event</a></li>
-        <li><a href="{{url_for('events_index')}}">List Events</a></li>
-    </ul>
+    <section class="section">
+        <h1 class="title">Tsoha-keikat</h1>
+        <div class="columns">
+            <div class="column is-narrow"><a href="{{url_for('event_form')}}">New Event</a></div>
+            <div class="column is-narrow"><a href="{{url_for('events_index')}}">List Events</a></div>
+    </section>
     {% block body %}
     <p>
         This should never be visible

@@ -1,19 +1,31 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<form method="POST" action="{{ url_for('events_update', event_id=event.id) }}">
-    <label for="nameInput">Name: </label>
-    <input type="text" id="nameInput" name="name" value="{{ event.name }}" /><br>
+<section class="section">
+    <form method="POST" action="{{ url_for('events_update', event_id=event.id) }}">
+        <div class="field">
+            <label class="label" for="nameInput">Event Name: </label>
+            <input class="input" type="text" id="nameInput" name="name" value="{{ event.name }}" /><br>
+        </div>
 
-    <label for="venueInput">Venue: </label>
-    <input type="text" id="venueInput" name="venue" value="{{ event.venue }}"/><br>
+        <div class="field">
+            <label class="label" for="venueInput">Venue: </label>
+            <input class="input" type="text" id="venueInput" name="venue" value="{{ event.venue }}" /><br>
+        </div>
 
-    <label for="performerInput">Performer: </label>
-    <input type="text" id="performerInput" name="performer" value="{{ event.performer }}" /><br>
+        <div class="field">
+            <label class="label" for="performerInput">Performer: </label>
+            <input class="input" type="text" id="performerInput" name="performer" value="{{ event.performer }}" /><br>
+        </div>
 
-    <label for="dateInput">Date: </label>
-    <input type="date" id="dateInput" name="date" value="{{ event.date }}" /><br>
+        <div class="field">
+            <label class="label" for="dateInput">Date: </label>
+            <input class="input" type="date" id="dateInput" name="date" value="{{ event.date }}" /><br>
+        </div>
 
-    <input type="submit" value="Save changes" />
-</form>
+        <div class="field">
+            <input class="button is-info" type="submit" value="Save changes" />
+        </div>
+    </form>
+</section>
 {% endblock %}

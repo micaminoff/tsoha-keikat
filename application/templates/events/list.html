@@ -1,23 +1,30 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <table>
-    <tr>
-      <th>Event</th>
-      <th>Performer</th>
-      <th>Venue</th>
-      <th>Date</th>
-    </tr>
-    {% for event in events %}
-    <tr>
-      <td>{{ event.name }}</td>
-      <td>{{ event.performer }}</td>
-      <td>{{ event.venue }}</td>
-      <td>{{ event.date }}</td>
-      <td><button type="button">
-          <a href="{{url_for('events_modify', event_id=event.id)}}">Modify</a>
-      </button></td>
-    </tr>
-    {% endfor %}
-  </table>
+<section class="section">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Event</th>
+                <th>Performer</th>
+                <th>Venue</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in events %}
+            <tr>
+                <td>{{ event.name }}</td>
+                <td>{{ event.performer }}</td>
+                <td>{{ event.venue }}</td>
+                <td>{{ event.date }}</td>
+                <td><a href="{{url_for('events_modify', event_id=event.id)}}">
+                    <span class="icon"><i class="far fa-edit"></i></span>
+                </a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
 {% endblock %}
