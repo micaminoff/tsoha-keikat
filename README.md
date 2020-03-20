@@ -22,6 +22,6 @@ The app will
 ## Documentation
 Documentation can be found in the [docs](/docs) folder.
 
-The diagram for the database can be found [here](/docs/diagram.png).
+The diagram for the database can be found [here](/docs/Diagram.png).
 
 User stories can be found [here](/docs/stories.md).
