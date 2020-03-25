@@ -1,12 +1,16 @@
 {% macro render_field(field, type='text') %}
     <div class='field'>
         {{ field.label(class_='label') }}
-        {{ field(class_='input', value=field.data, type=type) }}
+        {% if field.data %}
+            {{ field(class_='input', value=field.data, type=type) }}
+        {% else %}
+            {{ field(class_='input', type=type) }}
+        {% endif %}
     </div>
     {% if field.errors %}
         <ul class='errors'>
             {% for error in field.errors %}
-                <li><span class='is-danger tag'>{{error}}</div></li>
+                <li><span class='is-danger tag'>{{error}}</span></li>
             {% endfor %}
         </ul>
     {% endif %}

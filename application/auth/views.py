@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import login_user, logout_user
 
-from application import app
+from application import app, db
 from application.auth.models import User
 from application.auth.forms import LoginForm
 
@@ -23,7 +23,27 @@ def auth_login():
             return redirect(url_for("events_index"))
 
     return render_template("auth/loginform.html", form=form,
-                           error="No such username or password")
+                           error="Invalid credentials")
+
+
+@app.route("/auth/create", methods=["POST"])
+def auth_create():
+    form = LoginForm(request.form)
+
+    if form.validate():
+        user = User.query.filter_by(
+            email=form.email.data).first()
+        if user:
+            return render_template("auth/loginform.html", form=form,
+                                   error="This email is already in use.")
+        u = User(email=form.email.data, password=form.password.data)
+        db.session.add(u)
+        db.session.commit()
+        login_user(u)
+        return redirect(url_for('events_index'))
+
+    return render_template("auth/loginform.html", form=form,
+                           error="Invalid information")
 
 
 @app.route("/auth/logout")
