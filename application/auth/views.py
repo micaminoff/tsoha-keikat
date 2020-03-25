@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import login_user, logout_user
 
-from application import app, db
+from application import app, db, bcrypt
 from application.auth.models import User
 from application.auth.forms import LoginForm
 
@@ -14,13 +14,13 @@ def auth_login():
     form = LoginForm(request.form)
 
     if form.validate():
-        user = User.query.filter_by(
-            email=form.email.data, password=form.password.data).first()
+        user = User.query.filter_by(email=form.email.data).first()
 
         if user:
-            login_user(user)
-            print("User " + user.email + " signed in")
-            return redirect(url_for("events_index"))
+            if bcrypt.check_password_hash(user.password, form.password.data):
+                login_user(user)
+                print("User " + user.email + " signed in")
+                return redirect(url_for("events_index"))
 
     return render_template("auth/loginform.html", form=form,
                            error="Invalid credentials")
@@ -36,7 +36,10 @@ def auth_create():
         if user:
             return render_template("auth/loginform.html", form=form,
                                    error="This email is already in use.")
-        u = User(email=form.email.data, password=form.password.data)
+        pw_hash = bcrypt.generate_password_hash(
+            form.password.data).decode('utf-8')
+        u = User(email=form.email.data,
+                 password=pw_hash)
         db.session.add(u)
         db.session.commit()
         login_user(u)

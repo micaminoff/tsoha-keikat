@@ -1,5 +1,5 @@
 from flask import redirect, render_template, request, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 from application import app, db
 from application.events.models import Event
@@ -8,7 +8,9 @@ from application.events.forms import EventForm
 
 @app.route("/events/")
 def events_index():
-    return render_template("events/list.html", events=Event.query.all())
+    return render_template("events/list.html",
+                           events=Event.query.all(),
+                           user=current_user)
 
 
 @app.route("/events/new/", methods=['GET', 'POST'])
@@ -25,6 +27,7 @@ def events_create():
                   performer=form.performer.data,
                   venue=form.venue.data,
                   date=form.date.data)
+        e.account_id = current_user.id
         db.session().add(e)
         db.session().commit()
         # Then redirect to list of events
@@ -38,6 +41,8 @@ def events_create():
 @login_required
 def events_modify(event_id):
     e = Event.query.get(event_id)
+    if e.account.id is not current_user.id:
+        return redirect(url_for('events_index'))
 
     # POST: Update event
     if request.method == 'POST':
