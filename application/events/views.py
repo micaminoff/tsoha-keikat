@@ -37,7 +37,7 @@ def events_create():
     return render_template("events/new.html", form=EventForm())
 
 
-@app.route("/events/<event_id>/", methods=["GET", 'POST'])
+@app.route("/events/<event_id>/", methods=["GET", 'POST', 'DELETE'])
 @login_required
 def events_modify(event_id):
     e = Event.query.get(event_id)
@@ -64,3 +64,21 @@ def events_modify(event_id):
     form = EventForm(obj=e)
     return render_template("events/modify.html",
                            form=form, event=e)
+
+
+@app.route("/events/<event_id>/delete", methods=["GET", "POST"])
+@login_required
+def events_delete(event_id):
+    e = Event.query.get(event_id)
+    if e.account.id is not current_user.id:
+        return redirect(url_for('events_index'))
+
+    # DELETE: Delete event
+    if request.method == 'POST':
+        print('got a delete request')
+        db.session.delete(e)
+        db.session.commit()
+        return redirect(url_for('events_index'))
+
+    # GET: Serve form for confirmation
+    return render_template('events/deletion_confirmation.html', event=e)
