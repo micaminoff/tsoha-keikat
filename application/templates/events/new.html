@@ -4,23 +4,23 @@
 <section class="section">
     <form method="POST" action="{{ url_for('events_create') }}">
         <div class="field">
-            <label class="label" for="nameInput">Event Name: </label>
-            <input class="input" type="text" id="nameInput" name="name" /><br>
+            {{ form.name.label(class_='label') }}
+            {{ form.name(class_='input') }}
         </div>
         
         <div class="field">
-            <label class="label" for="venueInput">Venue: </label>
-            <input class="input" type="text" id="venueInput" name="venue" /><br>
+            {{ form.performer.label(class_='label') }}
+            {{ form.performer(class_='input') }}
         </div>
 
         <div class="field">
-            <label class="label" for="performerInput">Performer: </label>
-            <input class="input" type="text" id="performerInput" name="performer" /><br>
+            {{ form.venue.label(class_='label') }}
+            {{ form.venue(class_='input') }}
         </div>
 
         <div class="field">
-            <label class="label" for="dateInput">Date: </label>
-            <input class="input" type="date" id="dateInput" name="date" /><br>
+            {{ form.date.label(class_='label') }}
+            {{ form.date(class_='input', type='date') }}
         </div>
 
         <div class="field">
