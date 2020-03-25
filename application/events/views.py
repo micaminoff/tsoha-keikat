@@ -5,47 +5,48 @@ from application.events.models import Event
 from application.events.forms import EventForm
 
 
-@app.route("/events", methods=["GET"])
+@app.route("/events/")
 def events_index():
     return render_template("events/list.html", events=Event.query.all())
 
 
-@app.route("/events/new/")
-def event_form():
+@app.route("/events/new/", methods=['GET', 'POST'])
+def events_create():
+    # POST: Create new event
+    if request.method == 'POST':
+        form = EventForm(request.form)
+
+        e = Event(name=form.name.data,
+                  performer=form.performer.data,
+                  venue=form.venue.data,
+                  date=form.date.data)
+        db.session().add(e)
+        db.session().commit()
+        # Then redirect to list of events
+        return redirect(url_for("events_index"))
+
+    # GET: Serve form for event creation
     return render_template("events/new.html", form=EventForm())
 
 
-@app.route("/events/", methods=["POST"])
-def events_create():
-    form = EventForm(request.form)
-
-    e = Event(name=form.name.data,
-              performer=form.performer.data,
-              venue=form.venue.data,
-              date=form.date.data)
-    db.session().add(e)
-    db.session().commit()
-    return redirect(url_for("events_index"))
-
-
-@app.route("/events/<event_id>/", methods=["GET"])
+@app.route("/events/<event_id>/", methods=["GET", 'POST'])
 def events_modify(event_id):
+    # POST: Update event
+    if request.method == 'POST':
+        form = EventForm(request.form)
+
+        e = Event.query.get(event_id)
+
+        e.name = form.name.data
+        e.performer = form.performer.data
+        e.venue = form.venue.data
+        e.date = form.date.data
+
+        db.session().commit()
+        # Then redirect to list of events
+        return redirect(url_for("events_index"))
+
+    # GET: Serve form for event modification
     return render_template("events/modify.html",
                            event=Event.query.get(event_id),
                            form=EventForm())
-
-
-@app.route("/events/<event_id>/", methods=["POST"])
-def events_update(event_id):
-    form = EventForm(request.form)
-
-    e = Event.query.get(event_id)
-
-    e.name = form.name.data
-    e.performer = form.performer.data
-    e.venue = form.venue.data
-    e.date = form.date.data
-
-    db.session().commit()
-
-    return redirect(url_for("events_index"))

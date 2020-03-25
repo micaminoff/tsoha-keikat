@@ -2,7 +2,7 @@
 
 {% block body %}
 <section class="section">
-    <form method="POST" action="{{ url_for('events_update', event_id=event.id) }}">
+    <form method="POST" action="{{ url_for('events_modify', event_id=event.id) }}">
         <div class="field">
             {{ form.name.label(class_='label') }}
             {{ form.name(class_='input', value=event.name) }}
