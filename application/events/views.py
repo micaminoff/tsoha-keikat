@@ -48,6 +48,7 @@ def events_modify(event_id):
             db.session().commit()
             # Then redirect to list of events
             return redirect(url_for("events_index"))
+        # If not valid, return to modification form
         return render_template("events/modify.html",
                                form=form, event=e)
 
