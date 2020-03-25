@@ -1,27 +1,17 @@
 {% extends "layout.html" %}
+{% from 'field_macro.html' import render_field %}
+
 
 {% block body %}
 <section class="section">
     <form method="POST" action="{{ url_for('events_modify', event_id=event.id) }}">
-        <div class="field">
-            {{ form.name.label(class_='label') }}
-            {{ form.name(class_='input', value=event.name) }}
-        </div>
+        {{render_field(form.name)}}
         
-        <div class="field">
-            {{ form.performer.label(class_='label') }}
-            {{ form.performer(class_='input', value=event.performer) }}
-        </div>
+        {{render_field(form.performer)}}
 
-        <div class="field">
-            {{ form.venue.label(class_='label') }}
-            {{ form.venue(class_='input', value=event.venue) }}
-        </div>
-
-        <div class="field">
-            {{ form.date.label(class_='label') }}
-            {{ form.date(class_='input', type='date', value=event.date) }}
-        </div>
+        {{render_field(form.venue)}}
+        
+        {{render_field(form.date, type='date')}}
 
         <div class="field">
             <input class="button is-info" type="submit" value="Save changes" />
