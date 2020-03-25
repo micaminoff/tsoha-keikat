@@ -10,12 +10,21 @@
 </head>
 
 <body>
-    <section class="section">
-        <h1 class="title">Tsoha-keikat</h1>
-        <div class="columns">
-            <div class="column is-narrow"><a href="{{url_for('events_create')}}">New Event</a></div>
-            <div class="column is-narrow"><a href="{{url_for('events_index')}}">List Events</a></div>
+    <section class="hero is-primary is-bold">
+        <div class='hero-body'>
+            <div class='container has-text-centered'>
+                <h1 class="title">Tsoha-keikat</h1>
+                <h5 class="subtitle">A DB Project</h5>
+            </div>
+        </div>
     </section>
+    <nav class='breadcrumb is-centered'>
+        <ul>
+            <li><a href="{{url_for('events_create')}}" class='is-light'>New Event</a></li>
+            <li><a href="{{url_for('events_index')}}">List Events</a></li>
+            <li><a href="{{url_for('auth_login')}}">Log In</a></li>
+        </ul>
+    </nav>
     {% block body %}
     <p>
         This should never be visible
