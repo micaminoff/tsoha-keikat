@@ -1,6 +1,7 @@
-from application import app, db
 from flask import redirect, render_template, request, url_for
+from flask_login import login_required
 
+from application import app, db
 from application.events.models import Event
 from application.events.forms import EventForm
 
@@ -11,6 +12,7 @@ def events_index():
 
 
 @app.route("/events/new/", methods=['GET', 'POST'])
+@login_required
 def events_create():
     # POST: Create new event
     if request.method == 'POST':
@@ -33,6 +35,7 @@ def events_create():
 
 
 @app.route("/events/<event_id>/", methods=["GET", 'POST'])
+@login_required
 def events_modify(event_id):
     e = Event.query.get(event_id)
 
