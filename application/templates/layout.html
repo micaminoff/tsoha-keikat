@@ -15,6 +15,15 @@
             <div class='container has-text-centered'>
                 <h1 class="title">Tsoha-keikat</h1>
                 <h5 class="subtitle">A DB Project</h5>
+                {% if current_user.is_authenticated %}
+                    <nav class='level'>
+                        <div class='level-item'>
+                            <p>Signed in as {{ current_user.email }}. &nbsp;</p> <a href="{{url_for('auth_logout')}}" class='button is-dark'>Log Out</a>
+                        </div>
+                    </nav>
+                {% else %}
+                    <a href="{{url_for('auth_login')}}" class='button is-dark'>Log In</a>
+                {% endif %}
             </div>
         </div>
     </section>
@@ -22,7 +31,6 @@
         <ul>
             <li><a href="{{url_for('events_create')}}">New Event</a></li>
             <li><a href="{{url_for('events_index')}}">List Events</a></li>
-            <li><a href="{{url_for('auth_login')}}">Log In</a></li>
         </ul>
     </nav>
     {% block body %}
