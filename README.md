@@ -5,6 +5,7 @@
 
 The app is hosted on [heroku](https://tsoha-keikat.herokuapp.com/).
 
+The basic idea behind the app is to list shows with info about performer, venue, and date.
 
 #### Current state of the app
 
