@@ -4,6 +4,12 @@
 {% block body %}
 <section class="section">
     <form method="POST" action="{{ url_for('events_create') }}">
+
+        <!--
+            render_field() is a macro to enforce DRY between event modification and creation
+            reference: https://flask.palletsprojects.com/en/1.1.x/patterns/wtforms/
+        -->
+
         {{render_field(form.name)}}
         
         {{render_field(form.performer)}}

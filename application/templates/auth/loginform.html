@@ -3,6 +3,7 @@
 
 {% block body %}
 <section class='section'>
+    <!-- Login form with error message support -->
     <div class='container'>
         {% if error %}
         <div class='notification is-danger'>
@@ -21,7 +22,9 @@
             </div>
         </form>
     </div>
+    <!-- End login form -->
 </section>
+<!-- Prompt to register -->
 <div class='container'>
     <h4 class='is-size-4'>New user?</h4>
     <a href="{{url_for('auth_create')}}" class='button is-primary'>Sign Up!</a>
