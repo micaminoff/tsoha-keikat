@@ -9,21 +9,21 @@
             {{error}}
         </div>
         {% endif %}
-        <h3 class='is-size-3'>Sign In!</h3>
-        <form method="POST" action="{{ url_for('auth_login') }}">
+        <h3 class='is-size-3'>Sign Up!</h3>
+        <form method="POST" action="{{ url_for('auth_create') }}">
 
             {{render_field(form.email)}}
 
             {{render_field(form.password, type='password')}}
 
             <div class="field">
-                <input class="button is-primary" type="submit" value="Sign In" />
+                <input class="button is-primary" type="submit" value="Sign Up" />
             </div>
         </form>
     </div>
 </section>
 <div class='container'>
-    <h4 class='is-size-4'>New user?</h4>
-    <a href="{{url_for('auth_create')}}" class='button is-primary'>Sign Up!</a>
+    <h4 class='is-size-4'>Already have an account?</h4>
+    <a href="{{url_for('auth_login')}}" class='button is-primary'>Sign In!</a>
 </div>
 {% endblock %}

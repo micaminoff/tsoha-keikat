@@ -1,9 +1,10 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <section class="section">
-
-        <table class="table">
+<section class="section">
+    <div class='container'>
+        <h2 class='is-size-2'>Events</h2>
+        <table class="table is-bordered is-striped">
             <thead>
                 <tr>
                     <th>Event</th>
@@ -21,15 +22,16 @@
                     <td>{{ event.date }}</td>
                     {% if user.id == event.account.id %}
                     <td><a href="{{url_for('events_modify', event_id=event.id)}}">
-                        <span class="icon"><i class="far fa-edit"></i></span>
-                    </a></td>
+                            <span class="icon"><i class="far fa-edit"></i></span>
+                        </a></td>
                     <td><a href="{{url_for('events_delete', event_id=event.id)}}">
-                        <span class="icon has-text-danger"><i class="fas fa-trash"></i></span>
-                    </a></td>
+                            <span class="icon has-text-danger"><i class="fas fa-trash"></i></span>
+                        </a></td>
                     {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-    </section>
+    </div>
+</section>
 {% endblock %}

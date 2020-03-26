@@ -26,8 +26,12 @@ def auth_login():
                            error="Invalid credentials")
 
 
-@app.route("/auth/create", methods=["POST"])
+@app.route("/auth/create", methods=["GET", "POST"])
 def auth_create():
+
+    if request.method == 'GET':
+        return render_template("auth/registerform.html", form=LoginForm())
+
     form = LoginForm(request.form)
 
     if form.validate():
@@ -45,7 +49,7 @@ def auth_create():
         login_user(u)
         return redirect(url_for('events_index'))
 
-    return render_template("auth/loginform.html", form=form,
+    return render_template("auth/registerform.html", form=form,
                            error="Invalid information")
 
 
