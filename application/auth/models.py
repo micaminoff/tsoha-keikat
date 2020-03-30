@@ -13,6 +13,7 @@ class User(Base):
 
     # One-To-Many relationship, each event has a creator
     events = db.relationship("Event", backref='account', lazy=True)
+    events = db.relationship("Performer", backref='account', lazy=True)
 
     def __init__(self, email, password):
         self.email = email

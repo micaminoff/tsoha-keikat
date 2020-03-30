@@ -37,11 +37,11 @@ def events_create():
     return render_template("events/new.html", form=EventForm())
 
 
-@app.route("/events/<event_id>/", methods=["GET", 'POST', 'DELETE'])
+@app.route("/events/<event_id>/", methods=["GET", 'POST'])
 @login_required
 def events_modify(event_id):
     e = Event.query.get(event_id)
-    if e.account.id is not current_user.id:
+    if e.account.id is not current_user.id and not current_user.admin:
         return redirect(url_for('events_index'))
 
     # POST: Update event

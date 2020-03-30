@@ -23,6 +23,9 @@ from application import views
 from application.events import models
 from application.events import views
 
+from application.performers import models
+from application.performers import views
+
 from application.auth import models
 from application.auth import views
 

@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block body %}
+<article class='message is-danger'>
+    <div class='message-header'>
+        <p>Warning!</p>
+    </div>
+    <div class='message-body'>
+        <p>You are about to delete the following performer:</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Performer</th>
+                    <th>Genre</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ performer.name }}</td>
+                    <td>{{ performer.genre }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <nav class='level'>
+            <a href="{{url_for('performers_index')}}" class='button is-large is-success'>Cancel</a>
+            <form method="POST" action="{{ url_for('performers_delete', performer_id=performer.id) }}">
+                <input class="button is-danger is-small" type="submit" value="Delete" />
+            </form>
+        </nav>
+    </div>
+</article>
+{% endblock %}
