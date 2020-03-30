@@ -17,6 +17,15 @@
 
             {{render_field(form.password, type='password')}}
 
+            <div class='field'>
+                {{ form.admin.label(class_='label') }}
+                {% if form.admin.data %}
+                    {{ form.admin(type='checkbox', value=form.admin.data) }}
+                {% else %}
+                    {{ form.admin(type='checkbox') }}
+                {% endif %}
+            </div>
+
             <div class="field">
                 <input class="button is-primary" type="submit" value="Sign Up" />
             </div>

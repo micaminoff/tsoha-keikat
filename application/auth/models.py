@@ -1,18 +1,15 @@
 from application import db
+from application.models import Base
 
 
-class User(db.Model):
+class User(Base):
 
     __tablename__ = "account"
-
-    id = db.Column(db.Integer, primary_key=True)
-    date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
-    date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(),
-                              onupdate=db.func.current_timestamp())
 
     # Email = username. Uniqueness is enforced in auth/views.py
     email = db.Column(db.String(144), nullable=False)
     password = db.Column(db.String(144), nullable=False)
+    admin = db.Column(db.Boolean(), unique=False, default=False)
 
     # One-To-Many relationship, each event has a creator
     events = db.relationship("Event", backref='account', lazy=True)

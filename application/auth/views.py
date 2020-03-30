@@ -51,9 +51,12 @@ def auth_create():
             form.password.data).decode('utf-8')
         u = User(email=form.email.data,
                  password=pw_hash)
+        if form.admin.data is True:
+            u.admin = True
         db.session.add(u)
         db.session.commit()
         login_user(u)
+        print(u)
         return redirect(url_for('events_index'))
 
     # If anything in POST goes wrong, serve login form with errors

@@ -20,7 +20,7 @@
                     <td>{{ event.performer }}</td>
                     <td>{{ event.venue }}</td>
                     <td>{{ event.date }}</td>
-                    {% if user.id == event.account.id %}
+                    {% if user.id == event.account.id or user.admin == True %}
                     <td><a href="{{url_for('events_modify', event_id=event.id)}}">
                             <span class="icon"><i class="far fa-edit"></i></span>
                         </a></td>
