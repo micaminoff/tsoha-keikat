@@ -32,3 +32,5 @@ User stories can be found [here](/docs/stories.md).
 
 Test user for peer review etc is:
 * test@user.com / HelloWorld
+
+*hei katselmoija, voit antaa palautteen suomeksi jos haluat*
