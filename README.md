@@ -10,12 +10,14 @@ The basic idea behind the app is to list shows with info about performer, venue,
 #### Current state of the app
 
 * Event Table exists
-* Users Table exists (only one type of user at the moment)
+* Users Table exists
 * All events have an account reference
 * Editing and deletion is restricted to the creator of an event
 * Postgres running on Heroku
 * CRUD functionality for the Events table
-* Logging in and signing up works
+* Logging in and signing up works (even as admin!)
+
+* Master branch is kinda stale at the moment, check out the branch *part-4* for an unstable mess of debugging.
 
 #### Future state of app
 The app will
