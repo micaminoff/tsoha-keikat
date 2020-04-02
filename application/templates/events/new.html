@@ -14,8 +14,8 @@
 
         <div class='field'>
             {{ form.performer.label(class_='label') }}
-            <div class='select'>
-                {{ form.performer }}
+            <div class=''>
+                {{ form.performer(multiple='') }}
             </div>
         </div>
         {% if form.performer.errors %}
