@@ -17,7 +17,11 @@
                 {% for event in events %}
                 <tr>
                     <td>{{ event.name }}</td>
-                    <td>{{ event.performer }}</td>
+                    <td>
+                        {% for p in event.performers %}
+                            <span>{{p}}</span>
+                        {% endfor %}
+                    </td>
                     <td>{{ event.venue }}</td>
                     <td>{{ event.date }}</td>
                     {% if user.id == event.account.id or user.admin == True %}

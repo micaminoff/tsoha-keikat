@@ -11,11 +11,22 @@
         -->
 
         {{render_field(form.name)}}
-        
-        {{render_field(form.performer)}}
 
+        <div class='field'>
+            {{ form.performer.label(class_='label') }}
+            <div class='select'>
+                {{ form.performer }}
+            </div>
+        </div>
+        {% if form.performer.errors %}
+        <ul class='errors'>
+            {% for error in form.performer.errors %}
+            <li><span class='is-danger tag'>{{error}}</span></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
         {{render_field(form.venue)}}
-        
+
         {{render_field(form.date, type='date')}}
 
         <div class="field">

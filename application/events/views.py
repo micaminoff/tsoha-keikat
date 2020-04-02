@@ -4,6 +4,7 @@ from flask_login import login_required, current_user
 from application import app, db
 from application.events.models import Event
 from application.events.forms import EventForm
+from application.performers.models import Performer
 
 
 @app.route("/events/")
@@ -19,12 +20,15 @@ def events_create():
     # POST: Create new event
     if request.method == 'POST':
         form = EventForm(request.form)
+        print(form.performer.data)
+        # This line... after 4 hours of debugging I finally solved it.
+        form.performer.choices = [(performer.id, performer.name) for performer in Performer.query.all()]
 
         if not form.validate():
             return render_template('events/new.html', form=form)
 
         e = Event(name=form.name.data,
-                  performer=form.performer.data,
+                  performers=[Performer.query.get(form.performer.data)],
                   venue=form.venue.data,
                   date=form.date.data)
         e.account_id = current_user.id
@@ -34,7 +38,9 @@ def events_create():
         return redirect(url_for("events_index"))
 
     # GET: Serve form for event creation
-    return render_template("events/new.html", form=EventForm())
+    form = EventForm()
+    form.performer.choices = [(performer.id, performer.name) for performer in Performer.query.all()]
+    return render_template("events/new.html", form=form)
 
 
 @app.route("/events/<event_id>/", methods=["GET", 'POST'])

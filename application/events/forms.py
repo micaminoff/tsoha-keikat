@@ -1,10 +1,10 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateField, validators
+from wtforms import DateField, SelectField, StringField, validators
 
 
 class EventForm(FlaskForm):
     name = StringField("Event name")
-    performer = StringField('Performer', [validators.Length(min=2)])
+    performer = SelectField(u'Performer', coerce=int)
     venue = StringField('Venue', [validators.DataRequired()])
     date = DateField('Date', [validators.DataRequired()])
 

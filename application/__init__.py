@@ -19,6 +19,7 @@ db = SQLAlchemy(app)
 
 # Application
 from application import views
+from application import models
 
 from application.events import models
 from application.events import views
@@ -47,6 +48,15 @@ def load_user(user_id):
 
 
 try:
+    #from application.performers.models import Performer
+    #from application.auth.models import User
     db.create_all()
+    '''u = User(email='super@admin.com', password='guest')
+    u.admin = True
+    db.session.add(u)
+    p = Performer(name='Test performer', genre='Programming')
+    p.account_id = u.id
+    db.session().add(p)
+    db.session().commit()'''
 except:
     pass

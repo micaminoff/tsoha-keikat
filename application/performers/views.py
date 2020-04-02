@@ -23,7 +23,7 @@ def performers_create():
         if not form.validate():
             return render_template('performers/new.html', form=form)
 
-        p = Performer(name=form.name.data, genre=form.name.data)
+        p = Performer(name=form.name.data, genre=form.genre.data)
         p.account_id = current_user.id
         db.session().add(p)
         db.session().commit()
