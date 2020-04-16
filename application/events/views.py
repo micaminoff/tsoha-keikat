@@ -91,7 +91,6 @@ def events_modify(event_id):
     for sub_form in form.performers:
         sub_form.performer.choices = performers
         sub_form.performer.data = e.performers[iterator].id
-        print(e.performers[iterator].id)
         iterator += 1
     return render_template("events/modify.html",
                            form=form, event=e, performers=performers)
