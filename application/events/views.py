@@ -20,15 +20,20 @@ def events_create():
     # POST: Create new event
     if request.method == 'POST':
         form = EventForm(request.form)
-        print(form.performers.data)
-        # This line... after 4 hours of debugging I finally solved it.
-        form.performers.choices = [(performer.id, performer.name)
-                                   for performer in Performer.query.all()]
-        if not form.validate():
+        performers = [(performer.id, performer.name)
+                      for performer in Performer.query.all()]
+        for sub_form in form.performers:
+            sub_form.performer.choices = performers
+
+        if not form.validate_on_submit():
             return render_template('events/new.html', form=form)
 
+        for entry in form.performers.entries:
+            print(entry.data['performer'])
+        performer_ids = [(entry.data['performer']) for entry in form.performers.entries]
+        print(performer_ids)
         e = Event(name=form.name.data,
-                  performers=[Performer.query.get(form.performers.data)],
+                  performers=[(Performer.query.get(id)) for id in performer_ids],
                   venue=form.venue.data,
                   date=form.date.data)
         e.account_id = current_user.id

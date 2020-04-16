@@ -13,12 +13,16 @@
         {{render_field(form.name)}}
 
         <div class='field'>
-            {% for performer in form.performers %}
-                {{ performer.label(class_='label') }}
-                {{ performer(class_='select') }}
-            {% endfor %}
+            <div id='subforms-container'>
+                {% for performer in form.performers %}
+                <div id="performer-{{ loop.index0 }}-form" class="subform" data-index="{{ loop.index0 }}">
+                    {{ performer(class_='select') }}
+                    <a class='button is-danger remove' href="#">Remove</a>
+                </div>
+                {% endfor %}
+            </div>
         </div>
-        <button class='button is-info' id='add_performer'>Add another</button>
+        <a class='button is-info' id='add' href="#">Add another</a>
 
         {% if form.performers.errors %}
         <ul class='errors'>
@@ -36,4 +40,23 @@
         </div>
     </form>
 </section>
+{# Template form for dynamic number of performers #}
+{# Thanks to Rafael Medina (https://www.rmedgar.com/blog/dynamic-fields-flask-wtf) #}
+<div id="performer-_-form" class="is-hidden" data-index="_">
+    <table class="select" id="performers-_">
+        <tbody>
+            <tr>
+                <th><label for="performers-_-performer">Performer</label></th>
+                <td><select id="performers-_-performer" name="performers-_-performer">
+                        <option value="1">test</option>
+                        <option value="2">test2</option>
+                        <option value="3">hdfjsbdfjpsdhfhpsuiojdfbhpisujdbfpisjdfbpsdijfbspdf</option>
+                        <option value="4">asdsadasddas</option>
+                        <option value="5">test</option>
+                    </select></td>
+            </tr>
+        </tbody>
+    </table>
+    <a class="button is-danger remove" href="#">Remove</a>
+</div>
 {% endblock %}
