@@ -14,7 +14,7 @@
             <tbody>
                 {% for performer in performers %}
                 <tr>
-                    <td>{{ performer.name }}</td>
+                    <td><a href="{{url_for('performers_inspect', performer_id=performer.id)}}">{{ performer.name }}</a></td>
                     <td>{{ performer.genre }}</td>
                     {% if user.id == performer.account.id or user.admin == True %}
                     <td><a href="{{url_for('performers_modify', performer_id=performer.id)}}">

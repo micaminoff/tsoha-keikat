@@ -34,7 +34,7 @@ def performers_create():
     return render_template("performers/new.html", form=PerformerForm())
 
 
-@app.route('/performers/<performer_id>/', methods=['GET', 'POST'])
+@app.route('/performers/<performer_id>/', methods=['GET'])
 def performers_inspect(performer_id):
     p = Performer.query.get(performer_id)
     print("HELLOOOOOOOOO ", p.id)

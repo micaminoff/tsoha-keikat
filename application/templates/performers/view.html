@@ -5,6 +5,9 @@
     <div class='container'>
         <h2 class='is-size-2'>{{performer.name}}</h2>
         <h3 class='is-size-3'>{{performer.genre}}</h3>
+        <a class="button is-info" href="{{url_for('performers_modify', performer_id=performer.id)}}">
+            Modify
+        </a>
 
         <div class='container'>
             <h4 class='is-size-4'>Events</h4>
