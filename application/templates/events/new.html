@@ -13,14 +13,16 @@
         {{render_field(form.name)}}
 
         <div class='field'>
-            {{ form.performer.label(class_='label') }}
-            <div class=''>
-                {{ form.performer(multiple='') }}
-            </div>
+            {% for performer in form.performers %}
+                {{ performer.label(class_='label') }}
+                {{ performer(class_='select') }}
+            {% endfor %}
         </div>
-        {% if form.performer.errors %}
+        <button class='button is-info' id='add_performer'>Add another</button>
+
+        {% if form.performers.errors %}
         <ul class='errors'>
-            {% for error in form.performer.errors %}
+            {% for error in form.performers.errors %}
             <li><span class='is-danger tag'>{{error}}</span></li>
             {% endfor %}
         </ul>

@@ -17,8 +17,6 @@ The basic idea behind the app is to list shows with info about performer, venue,
 * CRUD functionality for the Events table
 * Logging in and signing up works (even as admin!)
 
-* Master branch is kinda stale at the moment, check out the branch *part-4* for an unstable mess of debugging.
-
 #### Future state of app
 The app will
 * Allow sorting by time/place/performer

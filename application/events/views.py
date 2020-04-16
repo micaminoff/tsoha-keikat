@@ -20,15 +20,15 @@ def events_create():
     # POST: Create new event
     if request.method == 'POST':
         form = EventForm(request.form)
-        print(form.performer.data)
+        print(form.performers.data)
         # This line... after 4 hours of debugging I finally solved it.
-        form.performer.choices = [(performer.id, performer.name) for performer in Performer.query.all()]
-
+        form.performers.choices = [(performer.id, performer.name)
+                                   for performer in Performer.query.all()]
         if not form.validate():
             return render_template('events/new.html', form=form)
 
         e = Event(name=form.name.data,
-                  performers=[Performer.query.get(form.performer.data)],
+                  performers=[Performer.query.get(form.performers.data)],
                   venue=form.venue.data,
                   date=form.date.data)
         e.account_id = current_user.id
@@ -38,8 +38,11 @@ def events_create():
         return redirect(url_for("events_index"))
 
     # GET: Serve form for event creation
+    performers = [(performer.id, performer.name)
+                  for performer in Performer.query.all()]
     form = EventForm()
-    form.performer.choices = [(performer.id, performer.name) for performer in Performer.query.all()]
+    for sub_form in form.performers:
+        sub_form.performer.choices = performers
     return render_template("events/new.html", form=form)
 
 
@@ -55,7 +58,7 @@ def events_modify(event_id):
         form = EventForm(request.form)
         if form.validate():
             e.name = form.name.data
-            e.performer = form.performer.data
+            e.performers = form.performers.data
             e.venue = form.venue.data
             e.date = form.date.data
 

@@ -8,7 +8,7 @@
             <thead>
                 <tr>
                     <th>Event</th>
-                    <th>Performer</th>
+                    <th>Performers</th>
                     <th>Venue</th>
                     <th>Date</th>
                 </tr>
@@ -19,7 +19,7 @@
                     <td>{{ event.name }}</td>
                     <td>
                         {% for p in event.performers %}
-                            <span>{{p}}</span>
+                            <span>{{p.name}},&nbsp;</span>
                         {% endfor %}
                     </td>
                     <td>{{ event.venue }}</td>
