@@ -30,10 +30,12 @@ def events_create():
 
         for entry in form.performers.entries:
             print(entry.data['performer'])
-        performer_ids = [(entry.data['performer']) for entry in form.performers.entries]
+        performer_ids = [(entry.data['performer'])
+                         for entry in form.performers.entries]
         print(performer_ids)
         e = Event(name=form.name.data,
-                  performers=[(Performer.query.get(id)) for id in performer_ids],
+                  performers=[(Performer.query.get(id))
+                              for id in performer_ids],
                   venue=form.venue.data,
                   date=form.date.data)
         e.account_id = current_user.id
@@ -48,7 +50,7 @@ def events_create():
     form = EventForm()
     for sub_form in form.performers:
         sub_form.performer.choices = performers
-    return render_template("events/new.html", form=form)
+    return render_template("events/new.html", form=form, performers=performers)
 
 
 @app.route("/events/<event_id>/", methods=["GET", 'POST'])
@@ -61,9 +63,16 @@ def events_modify(event_id):
     # POST: Update event
     if request.method == 'POST':
         form = EventForm(request.form)
+        performers = [(performer.id, performer.name)
+                      for performer in Performer.query.all()]
+        for sub_form in form.performers:
+            sub_form.performer.choices = performers
         if form.validate():
+            performer_ids = [(entry.data['performer'])
+                             for entry in form.performers.entries]
             e.name = form.name.data
-            e.performers = form.performers.data
+            e.performers = [(Performer.query.get(id))
+                            for id in performer_ids]
             e.venue = form.venue.data
             e.date = form.date.data
 
@@ -76,8 +85,16 @@ def events_modify(event_id):
 
     # GET: Serve form for event modification
     form = EventForm(obj=e)
+    performers = [(performer.id, performer.name)
+                  for performer in Performer.query.all()]
+    iterator = 0
+    for sub_form in form.performers:
+        sub_form.performer.choices = performers
+        sub_form.performer.data = e.performers[iterator].id
+        print(e.performers[iterator].id)
+        iterator += 1
     return render_template("events/modify.html",
-                           form=form, event=e)
+                           form=form, event=e, performers=performers)
 
 
 @app.route("/events/<event_id>/delete", methods=["GET", "POST"])

@@ -12,11 +12,29 @@
         -->
 
         {{render_field(form.name)}}
-        
-        {{render_field(form.performer)}}
+
+        <div class='field'>
+            <div id='subforms-container'>
+                {% for performer in form.performers %}
+                <div id="performer-{{ loop.index0 }}-form" class="subform" data-index="{{ loop.index0 }}">
+                    {{ performer(class_='select') }}
+                    <a class='button is-danger remove' href="#">Remove</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <a class='button is-info' id='add' href="#">Add another</a>
+
+        {% if form.performers.errors %}
+        <ul class='errors'>
+            {% for error in form.performers.errors %}
+            <li><span class='is-danger tag'>{{error}}</span></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
 
         {{render_field(form.venue)}}
-        
+
         {{render_field(form.date, type='date')}}
 
         <div class="field">
