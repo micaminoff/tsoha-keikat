@@ -19,7 +19,7 @@
                     <td>{{ event.name }}</td>
                     <td>
                         {% for p in event.performers %}
-                            <span>{{p.name}},&nbsp;</span>
+                            <a href="{{url_for('performers_inspect', performer_id=p.id)}}">{{p.name}},&nbsp;</span>
                         {% endfor %}
                     </td>
                     <td>{{ event.venue }}</td>

@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+
+{% block body %}
+<section class="section">
+    <p>Logged in as {{current_user.email}}</p>
+
+    <h2 class='is-size-2'>My performers</h2>
+    {% if performers %}
+    <table class="table is-bordered is-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Genre</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for performer in performers %}
+            <tr>
+                <td><a href="{{url_for('performers_inspect', performer_id=performer.id)}}">{{ performer.name }}</a></td>
+                <td>{{ performer.genre }}</td>
+                <td><a href="{{url_for('performers_modify', performer_id=performer.id)}}">
+                        <span class="icon"><i class="far fa-edit"></i></span>
+                    </a></td>
+                <td><a href="{{url_for('performers_delete', performer_id=performer.id)}}">
+                        <span class="icon has-text-danger"><i class="fas fa-trash"></i></span>
+                    </a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No performers found.</p>
+    <a href="{{url_for('performers_create')}}" class="button is-success">Create one?</a>
+    {% endif %}
+    <h2 class='is-size-2'>My Events</h2>
+    {% if events %}
+    <p>You have created {{event_count}} event(s)! Good job!</p>
+    <table class="table is-bordered is-striped">
+        <thead>
+            <tr>
+                <th>Event</th>
+                <th>Performers</th>
+                <th>Venue</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in events %}
+            <tr>
+                <td>{{ event.name }}</td>
+                <td>
+                    {% for p in event.performers %}
+                    <span>{{p.name}},&nbsp;</span>
+                    {% endfor %}
+                </td>
+                <td>{{ event.venue }}</td>
+                <td>{{ event.date }}</td>
+                <td><a href="{{url_for('events_modify', event_id=event.id)}}">
+                        <span class="icon"><i class="far fa-edit"></i></span>
+                    </a></td>
+                <td><a href="{{url_for('events_delete', event_id=event.id)}}">
+                        <span class="icon has-text-danger"><i class="fas fa-trash"></i></span>
+                    </a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No events found.</p>
+    <a href="{{url_for('events_create')}}" class="button is-success">Create one?</a>
+    {% endif %}
+</section>
+{% endblock %}

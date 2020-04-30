@@ -1,8 +1,10 @@
 from flask import render_template, request, redirect, url_for
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, current_user, login_required
 
 from application import app, db, bcrypt
 from application.auth.models import User
+from application.performers.models import Performer
+from application.events.models import Event
 from application.auth.forms import LoginForm
 
 
@@ -29,6 +31,15 @@ def auth_login():
                            error="Invalid credentials")
 
 
+@app.route("/auth/me", methods=["GET"])
+@login_required
+def auth_index():
+    performers = Performer.query.filter_by(account_id=current_user.id).all()
+    events = Event.query.filter_by(account_id=current_user.id).all()
+    event_count = User.count_users_events(current_user.id)
+    return render_template("auth/view.html", performers=performers, events=events, event_count=event_count)
+
+
 @app.route("/auth/create", methods=["GET", "POST"])
 def auth_create():
 
@@ -46,7 +57,7 @@ def auth_create():
             return render_template("auth/loginform.html", form=form,
                                    error="This email is already in use.")
 
-        # If valid email, create user and has password, then login and redirect
+        # If valid email, create user and hash password, then login and redirect
         pw_hash = bcrypt.generate_password_hash(
             form.password.data).decode('utf-8')
         u = User(email=form.email.data,

@@ -1,6 +1,8 @@
 from application import db
 from application.models import Base
 
+from sqlalchemy.sql import text
+
 
 class User(Base):
 
@@ -30,3 +32,10 @@ class User(Base):
 
     def is_authenticated(self):
         return True
+
+    @staticmethod
+    def count_users_events(user=0):
+        stmt = text("SELECT COUNT(*) FROM Event e"
+                    " WHERE e.account_id = :usr").params(usr=user)
+        res = db.engine.execute(stmt).fetchone()
+        return res[0]

@@ -3,14 +3,17 @@
 
 <section class="section">
     <div class='container'>
-        <h2 class='is-size-2'>{{performer.name}}</h2>
-        <h3 class='is-size-3'>{{performer.genre}}</h3>
+        <h3 class='is-size-3'>{{performer.name}}</h3>
+        <h4 class='is-size-4'>{{performer.genre}}</h4>
+        {% if user.id == performer.account_id or user.admin == True %}
         <a class="button is-info" href="{{url_for('performers_modify', performer_id=performer.id)}}">
             Modify
         </a>
-
+        {% endif %}
         <div class='container'>
-            <h4 class='is-size-4'>Events</h4>
+            <h3 class='is-size-3'>Events</h3>
+            <p>This performer currently has {{count}} event(s) scheduled.</p>
+            {% if events %}
             <table class="table is-bordered is-striped">
                 <thead>
                     <tr>
@@ -25,7 +28,11 @@
                         <td>{{ event.name }}</td>
                         <td>{{ event.venue }}</td>
                         <td>{{ event.date }}</td>
-                        {% if user.id == event.account.id or user.admin == True %}
+                        {% if user.id == event.account or user.admin == True %}
+                        <script>
+                            console.log("{{user.id}}")
+                            console.log
+                        </script>
                         <td><a href="{{url_for('events_modify', event_id=event.id)}}">
                                 <span class="icon"><i class="far fa-edit"></i></span>
                             </a></td>
@@ -37,6 +44,10 @@
                     {% endfor %}
                 </tbody>
             </table>
+            {% else %}
+                <p>No events scheduled for this performer.</p>
+                <a href="{{url_for('events_create')}}" class="button is-success">Add event!</a>
+            {% endif %}
         </div>
     </div>
 </section>

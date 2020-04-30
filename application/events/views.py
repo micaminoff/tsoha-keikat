@@ -100,7 +100,7 @@ def events_modify(event_id):
 @login_required
 def events_delete(event_id):
     e = Event.query.get(event_id)
-    if e.account.id is not current_user.id:
+    if e.account.id is not current_user.id and not current_user.admin:
         return redirect(url_for('events_index'))
 
     # DELETE: Delete event

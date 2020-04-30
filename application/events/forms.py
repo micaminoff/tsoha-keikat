@@ -10,11 +10,11 @@ class PerformerEntryForm(FlaskForm):
 
 
 class EventForm(FlaskForm):
-    name = StringField("Event name")
+    name = StringField("Event name", [validators.Length(max=144)])
     performers = FieldList(FormField(PerformerEntryForm), min_entries=1,
                            max_entries=10)
     # performer = SelectField(u'Performer', coerce=int)
-    venue = StringField('Venue', [validators.DataRequired()])
+    venue = StringField('Venue', [validators.DataRequired(), validators.Length(max=144)])
     date = DateField('Date', [validators.DataRequired()])
 
     class Meta:

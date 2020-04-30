@@ -37,9 +37,9 @@ def performers_create():
 @app.route('/performers/<performer_id>/', methods=['GET'])
 def performers_inspect(performer_id):
     p = Performer.query.get(performer_id)
-    print("HELLOOOOOOOOO ", p.id)
-    events = Performer.find_my_events(p.id)
-    return render_template('performers/view.html', performer=p, events=events, user=current_user)
+    events = Performer.find_events(p.id)
+    event_count = Performer.count_events(p.id)
+    return render_template('performers/view.html', performer=p, events=events, user=current_user, count=event_count)
 
 
 @app.route('/performers/modify/<performer_id>/', methods=['GET', 'POST'])
